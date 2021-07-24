@@ -1,9 +1,9 @@
-import { Header } from '../components/Header';
+import { Filterbar } from '../components/Filterbar';
 
 export const Home = () => {
   return (
     <div>
-      <Header />
+      <Filterbar />
     </div>
   );
 };

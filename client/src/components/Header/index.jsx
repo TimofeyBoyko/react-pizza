@@ -12,9 +12,9 @@ export const Header = () => {
           </div>
         </div>
         <div className={`${styles.cart} d-flex align-center`}>
-          <p className="ml-15 mr-5">520 ₽</p>
+          <p className="ml-20 mr-10">520 ₽</p>
           <div></div>
-          <img className="ml-5" width={25} height={20} src="/img/white-cart.svg" alt="cart" />
+          <img className="ml-10" width={20} height={15} src="/img/white-cart.svg" alt="cart" />
           <p className="ml-10">3</p>
         </div>
       </div>
