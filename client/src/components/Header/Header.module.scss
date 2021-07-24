@@ -1,0 +1,57 @@
+.header {
+  img {
+    cursor: pointer;
+  }
+  .text {
+    margin-left: 20px;
+
+    span {
+      padding: 0;
+      margin: 0;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 24px;
+      line-height: 29px;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    p {
+      padding: 0;
+      margin: 0;
+      font-family: Proxima Nova;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 19px;
+      color: #7b7b7b;
+    }
+  }
+
+  .cart {
+    width: 150px;
+    height: 50px;
+    background: #fe5f1e;
+    border-radius: 30px;
+
+    p {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 23px;
+      color: #ffffff;
+    }
+
+    div {
+      width: 1px;
+      height: 25px;
+      background: rgba(255, 255, 255, 0.25);
+    }
+  }
+}
+
+.line {
+  max-width: 1328px;
+  height: 1px;
+  background: #f7f7f7;
+}
