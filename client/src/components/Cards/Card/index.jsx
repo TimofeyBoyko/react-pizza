@@ -6,14 +6,6 @@ export const Card = ({ title, imgUrl, cost, sizes, types }) => {
   const [activeSize, setActiveSize] = useState(0);
   const [currentCost, setCurrentCost] = useState(cost);
 
-  const onChangeActiveType = (index) => {
-    setActiveType(index);
-  };
-
-  const onChangeActiveSize = (index) => {
-    setActiveSize(index);
-  };
-
   useEffect(() => {
     const newCost =
       cost + cost * sizes[activeSize].coefficient + cost * types[activeType].coefficient;
@@ -30,7 +22,7 @@ export const Card = ({ title, imgUrl, cost, sizes, types }) => {
             types.map((item, index) =>
               item.active ? (
                 <li
-                  onClick={() => onChangeActiveType(index)}
+                  onClick={() => setActiveType(index)}
                   key={item.type}
                   className={activeType === index ? styles.active : ''}>
                   {item.type}
@@ -47,7 +39,7 @@ export const Card = ({ title, imgUrl, cost, sizes, types }) => {
             sizes.map((item, index) =>
               item.active ? (
                 <li
-                  onClick={() => onChangeActiveSize(index)}
+                  onClick={() => setActiveSize(index)}
                   key={item.size}
                   className={activeSize === index ? styles.active : ''}>
                   {item.size}

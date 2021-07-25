@@ -18,7 +18,7 @@
     }
   }
 
-  .active {
+  .activeFilter {
     background: #282828;
     span {
       color: #ffffff;
@@ -30,6 +30,10 @@
   position: relative !important;
   img {
     cursor: pointer;
+  }
+
+  .transofrm {
+    transform: rotate(0.5turn);
   }
 
   p {
@@ -75,12 +79,12 @@
       padding: 12px 20px;
       cursor: pointer;
 
-      &.active,
+      &.activeSort,
       &:hover {
         background: rgba(254, 95, 30, 0.05);
       }
 
-      &.active {
+      &.activeSort {
         font-weight: bold;
         color: #fe5f1e;
       }
