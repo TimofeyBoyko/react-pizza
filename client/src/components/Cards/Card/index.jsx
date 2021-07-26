@@ -1,15 +1,28 @@
 import { useState, useEffect } from 'react';
 import styles from './Card.module.scss';
 
-export const Card = ({ title, imgUrl, cost, sizes, types }) => {
+export const Card = ({ _id, title, imgUrl, cost, sizes, types, addItemInCart, cart }) => {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const [currentCost, setCurrentCost] = useState(cost);
+  const [currentCount, setCurrentCount] = useState(0);
+
+  useEffect(() => {
+    if (cart.some((obj) => obj.pizzaId === _id)) {
+      let count = 0;
+      cart
+        .filter((obj) => obj.pizzaId === _id)
+        .forEach((item) => {
+          count = count + item.count;
+        });
+      setCurrentCount(count);
+    }
+  }, [_id, cart]);
 
   useEffect(() => {
     const newCost =
       cost + cost * sizes[activeSize].coefficient + cost * types[activeType].coefficient;
-    setCurrentCost(newCost);
+    setCurrentCost(Math.round(newCost));
   }, [activeType, activeSize, cost, sizes, types]);
 
   return (
@@ -54,9 +67,22 @@ export const Card = ({ title, imgUrl, cost, sizes, types }) => {
       </div>
       <div className={`w100p d-flex justify-between mt-20 align-center`}>
         <b>{currentCost} р.</b>
-        <div className={`${styles.addButton} d-flex align-center`}>
+        <div
+          onClick={() =>
+            addItemInCart({
+              pizzaId: _id,
+              title,
+              cost,
+              imgUrl,
+              size: sizes[activeSize],
+              type: types[activeType],
+            })
+          }
+          className={`${styles.addButton} d-flex align-center`}>
           <img className="ml-20" width={12} heigth={12} src="/img/vector.svg" alt="plus" />
-          <p className="mr-20 ml-10">Добавить</p>
+          <p className="mr-20 ml-10 d-flex align-center">
+            Добавить {currentCount > 0 && <span className="ml-10">{currentCount}</span>}
+          </p>
         </div>
       </div>
     </div>

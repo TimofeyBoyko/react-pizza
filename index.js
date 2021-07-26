@@ -11,6 +11,7 @@ const PORT = 5000;
 app.use(express.json({ extended: true }));
 
 app.use('/api/pizza', require('./routes/pizza.routes'));
+app.use('/api/cart', require('./routes/cart.routes'));
 
 async function start() {
   try {
