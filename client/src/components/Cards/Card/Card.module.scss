@@ -58,6 +58,24 @@
     box-sizing: border-box;
     border-radius: 30px;
 
+    &:hover {
+      background: #fe5f1e;
+      border: 1px solid #fe5f1e;
+
+      path {
+        fill: #ffffff;
+      }
+
+      p {
+        color: #ffffff;
+      }
+
+      span {
+        background: #ffffff;
+        color: #eb5a1e;
+      }
+    }
+
     p {
       font-style: normal;
       font-weight: bold;

@@ -1,0 +1,49 @@
+.cartItem {
+  div,
+  span,
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  div {
+    width: auto;
+  }
+  span {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 23px;
+    letter-spacing: 0.01em;
+  }
+
+  p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.01em;
+    color: #8d8d8d;
+  }
+
+  b {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: 0.01em;
+  }
+
+  svg {
+    cursor: pointer;
+    &:hover {
+      circle {
+        stroke: #ffffff;
+        fill: #fe5f1e;
+      }
+      path {
+        fill: #ffffff;
+      }
+    }
+  }
+}

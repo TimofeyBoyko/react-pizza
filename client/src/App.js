@@ -1,12 +1,18 @@
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import { Header } from './components/Header';
-import { Home } from './pages/Home';
+import { useRoutes } from './routes';
 
 function App() {
+  const routes = useRoutes();
+
   return (
-    <div className="wrapper clear">
-      <Header />
-      <Home />
-    </div>
+    <Router>
+      <div className="wrapper clear">
+        <Header />
+        {routes}
+      </div>
+    </Router>
   );
 }
 
