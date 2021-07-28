@@ -28,7 +28,7 @@ export const Home = () => {
   return (
     <>
       <Filterbar filterTypes={filterTypes} sortTypes={sortTypes} />
-      <Cards />
+      <Cards categories={filterTypes} />
     </>
   );
 };

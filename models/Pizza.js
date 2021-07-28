@@ -18,6 +18,8 @@ const schema = Schema({
       coefficient: { type: Number },
     },
   ],
+  raiting: { type: Number, required: true },
+  category: [{ type: Number, required: true }],
 });
 
 module.exports = model('Pizza', schema);
