@@ -1,47 +1,34 @@
-import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import { useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Cards } from '../components/Cards';
 import { Filterbar } from '../components/Filterbar';
+import { fetchPizzas } from '../redux/actions/pizzas';
+import { fetchCart } from '../redux/actions/cart';
+
+const filterTypes = ['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрыте'];
+const sortTypes = [
+  { name: 'популярности', type: 'popular' },
+  { name: 'цене', type: 'price' },
+  { name: 'алфавиту', type: 'alphabet' },
+];
 
 export const Home = () => {
-  const [pizzaItems, setPizzaItems] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
+  const dispatch = useDispatch();
 
-  const filterTypes = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закырыте'];
-  const sortTypes = ['популярности', 'цене', 'алфавиту'];
-
-  const addItemInCart = async (pizza) => {
-    const { data } = await axios.post('http://localhost:5000/api/cart/add', pizza);
-
-    if (cartItems.some((obj) => obj._id === data._id)) {
-      const oldCartItems = [...cartItems];
-
-      oldCartItems.splice(
-        oldCartItems.findIndex((obj) => obj._id === data._id),
-        1,
-        data,
-      );
-      return setCartItems([...oldCartItems]);
-    }
-    setCartItems((prev) => [...prev, data]);
-  };
-
-  const getDataFromServer = useCallback(async () => {
-    const pizza = await axios.get('http://localhost:5000/api/pizza/');
-    const cart = await axios.get('http://localhost:5000/api/cart/');
-
-    setPizzaItems(pizza.data);
-    setCartItems(cart.data);
-  }, [setPizzaItems]);
+  const getDataFromServer = useCallback(() => {
+    dispatch(fetchCart());
+    dispatch(fetchPizzas());
+  }, [dispatch]);
 
   useEffect(() => {
     getDataFromServer();
   }, [getDataFromServer]);
+
   return (
     <>
       <Filterbar filterTypes={filterTypes} sortTypes={sortTypes} />
-      <Cards pizza={pizzaItems} cart={cartItems} addItemInCart={addItemInCart} />
+      <Cards />
     </>
   );
 };

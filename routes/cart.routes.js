@@ -30,7 +30,7 @@ router.post('/add', async (req, res) => {
       const newPizza = new Cart(currentPizza);
 
       const data = await newPizza.save();
-      return res.status(201).json(data);
+      return res.status(200).json(data);
     }
 
     item.count = 1;
@@ -39,7 +39,60 @@ router.post('/add', async (req, res) => {
     const data = await newPizza.save();
     return res.status(201).json(data);
   } catch (e) {
-    console.log(e);
+    res.status(500).json({ message: 'Что-то пошло не так, попоробуйте снова' });
+  }
+});
+
+router.post('/plus/:id', async (req, res) => {
+  try {
+    const pizza = await Cart.findById(req.params.id);
+
+    const newPizza = new Cart(pizza);
+
+    newPizza.count++;
+
+    const data = await newPizza.save();
+
+    res.status(200).json(data);
+  } catch (e) {
+    res.status(500).json({ message: 'Что-то пошло не так, попоробуйте снова' });
+  }
+});
+
+router.post('/minus/:id', async (req, res) => {
+  try {
+    const pizza = await Cart.findById(req.params.id);
+
+    if (pizza.count > 1) {
+      const newPizza = new Cart(pizza);
+
+      newPizza.count--;
+
+      const data = await newPizza.save();
+
+      return res.status(200).json(data);
+    }
+    await Cart.deleteOne({ _id: pizza._id });
+    return res.status(200).json({ message: 'Удалено' });
+  } catch (e) {
+    res.status(500).json({ message: 'Что-то пошло не так, попоробуйте снова' });
+  }
+});
+
+router.post('/remove/:id', async (req, res) => {
+  try {
+    await Cart.deleteOne(req.params.id);
+    return res.status(200).json({ message: 'Удалено' });
+  } catch (e) {
+    res.status(500).json({ message: 'Что-то пошло не так, попоробуйте снова' });
+  }
+});
+
+router.post('/clear', async (req, res) => {
+  try {
+    await Cart.deleteMany();
+    return res.status(200).json({ message: 'Очищено' });
+  } catch (e) {
     res.status(500).json({ message: 'Что-то пошло не так, попоробуйте снова' });
   }
 });

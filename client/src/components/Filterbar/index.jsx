@@ -1,11 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategory, setSortBy } from '../../redux/actions/filters';
+
 import styles from './Filterbar.module.scss';
 
-export const Filterbar = ({ filterTypes, sortTypes }) => {
-  const [activeFilterType, setActiveFilterType] = useState(0);
-  const [activeSortType, setActiveSortType] = useState(0);
+export const Filterbar = memo(({ filterTypes, sortTypes }) => {
+  const dispatch = useDispatch();
+
   const [showSortPopup, setShowSortPopup] = useState(false);
   const sortRef = useRef();
+
+  const { activeFilterType, activeSortType } = useSelector(({ filters }) => ({
+    activeFilterType: filters.category,
+    activeSortType: filters.sortBy,
+  }));
 
   const toggleShowSortPopup = () => {
     setShowSortPopup((prev) => !prev);
@@ -25,11 +33,16 @@ export const Filterbar = ({ filterTypes, sortTypes }) => {
   return (
     <div ref={sortRef} className={`${styles.filterbar} d-flex justify-between`}>
       <ul className={`${styles.filter} d-flex`}>
+        <li
+          onClick={() => dispatch(setCategory(null))}
+          className={activeFilterType === null ? `${styles.activeFilter}` : ''}>
+          <span>Все</span>
+        </li>
         {filterTypes &&
           filterTypes.map((type, index) => (
             <li
               key={`${type}_${index}`}
-              onClick={() => setActiveFilterType(index)}
+              onClick={() => dispatch(setCategory(index))}
               className={activeFilterType === index ? `${styles.activeFilter}` : ''}>
               <span>{type}</span>
             </li>
@@ -43,7 +56,7 @@ export const Filterbar = ({ filterTypes, sortTypes }) => {
         />
         <p className="ml-5">Сортировка по:</p>
         <span onClick={toggleShowSortPopup} className="ml-15">
-          {sortTypes && sortTypes[activeSortType]}
+          {sortTypes && sortTypes.filter((obj) => obj.type === activeSortType)[0].name}
         </span>
         {showSortPopup && (
           <div className={`${styles.popup}`}>
@@ -51,10 +64,10 @@ export const Filterbar = ({ filterTypes, sortTypes }) => {
               {sortTypes &&
                 sortTypes.map((item, index) => (
                   <li
-                    onClick={() => setActiveSortType(index)}
-                    key={`${item}_${index}`}
-                    className={activeSortType === index ? styles.activeSort : ''}>
-                    {item}
+                    onClick={() => dispatch(setSortBy(item.type))}
+                    key={`${item.type}_${index}`}
+                    className={activeSortType === item.type ? styles.activeSort : ''}>
+                    {item.name}
                   </li>
                 ))}
             </ul>
@@ -63,4 +76,4 @@ export const Filterbar = ({ filterTypes, sortTypes }) => {
       </div>
     </div>
   );
-};
+});

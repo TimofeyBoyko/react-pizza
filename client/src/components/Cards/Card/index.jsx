@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { addCartItem } from '../../../redux/actions/cart';
+
 import styles from './Card.module.scss';
 
-export const Card = ({ _id, title, imgUrl, cost, sizes, types, addItemInCart, cart }) => {
+export const Card = ({ _id, title, imgUrl, cost, sizes, types }) => {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const [currentCost, setCurrentCost] = useState(cost);
   const [currentCount, setCurrentCount] = useState(0);
+
+  const dispatch = useDispatch();
+
+  const { cart } = useSelector(({ cart }) => ({
+    cart: cart.items,
+  }));
 
   useEffect(() => {
     if (cart.some((obj) => obj.pizzaId === _id)) {
@@ -69,14 +79,19 @@ export const Card = ({ _id, title, imgUrl, cost, sizes, types, addItemInCart, ca
         <b>{currentCost} р.</b>
         <div
           onClick={() =>
-            addItemInCart({
-              pizzaId: _id,
-              title,
-              cost,
-              imgUrl,
-              size: sizes[activeSize],
-              type: types[activeType],
-            })
+            dispatch(
+              addCartItem(
+                {
+                  pizzaId: _id,
+                  title,
+                  cost,
+                  imgUrl,
+                  size: sizes[activeSize],
+                  type: types[activeType],
+                },
+                cart,
+              ),
+            )
           }
           className={`${styles.addButton} d-flex align-center`}>
           <svg

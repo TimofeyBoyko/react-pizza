@@ -1,15 +1,23 @@
+import { useDispatch } from 'react-redux';
+
+import { minusCartItem, plusCartItem, removeCartItem } from '../../../redux/actions/cart';
 import styles from './CartItem.module.scss';
 
-export const CartItem = () => {
+export const CartItem = ({ item, cart }) => {
+  const dispatch = useDispatch();
+
   return (
-    <div className={`${styles.cartItem} d-flex justify-between align-center`}>
-      <img width={80} height={80} src="/img/pizza/1.png" alt="pizza" />
-      <div className="d-flex flex-column align-left ml-10">
-        <span className="pb-10">Сырный цыпленок</span>
-        <p>токное тесто, 26 см.</p>
+    <div className={`${styles.cartItem} d-flex justify-between align-center mb-20`}>
+      <img width={80} height={80} src={`/img/pizza/${item.imgUrl}`} alt="pizza" />
+      <div className="test d-flex flex-column align-left ml-10">
+        <span className="pb-10">{item.title}</span>
+        <p>
+          {item.type.type}, {item.size.size} см.
+        </p>
       </div>
       <div className="d-flex justify-end align-center">
         <svg
+          onClick={() => dispatch(minusCartItem(item, cart))}
           width={32}
           height={32}
           viewBox="0 0 32 32"
@@ -22,8 +30,9 @@ export const CartItem = () => {
           />
         </svg>
 
-        <b className="ml-15 mr-15">2</b>
+        <b className="ml-15 mr-15">{item.count}</b>
         <svg
+          onClick={() => dispatch(plusCartItem(item, cart))}
           width={32}
           height={32}
           viewBox="0 0 32 32"
@@ -36,8 +45,11 @@ export const CartItem = () => {
           />
         </svg>
       </div>
-      <div className="d-flex justify-center align-center">770 Р</div>
+      <div className={`${styles.cost} d-flex justify-center align-center`}>
+        {item.cost * item.count} ₽
+      </div>
       <svg
+        onClick={() => dispatch(removeCartItem(item, cart))}
         className="d-flex align-center"
         width={64}
         height={64}

@@ -1,8 +1,15 @@
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import styles from './Header.module.scss';
 
 export const Header = () => {
+  const { totalCount, totalCost } = useSelector(({ cart }) => ({
+    totalCost: cart.totalCost,
+    totalCount: cart.totalCount,
+  }));
+
   return (
     <>
       <div className={`${styles.header} d-flex justify-between align-center`}>
@@ -19,10 +26,10 @@ export const Header = () => {
         <Route path="/" exact>
           <Link to="/cart">
             <div className={`${styles.cart} d-flex align-center`}>
-              <p className="ml-20 mr-10">520 ₽</p>
+              <p className="mr-15">{totalCost} ₽</p>
               <div></div>
               <img className="ml-10" width={20} height={15} src="/img/white-cart.svg" alt="cart" />
-              <p className="ml-10">3</p>
+              <p className="ml-5">{totalCount}</p>
             </div>
           </Link>
         </Route>
