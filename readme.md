@@ -4,9 +4,10 @@
 
 This is a pet project of a pizza shop.
 Design was taken from Figma: https://www.figma.com/file/wWUnQwvRDWBfPx1v1pCAfO/React-Pizza?node-id=1%3A2.
+
 The client side of the application has two pages: list of pizza(home page) and a cart(cart page).
 On the home page user can filter list of pizza by categories and sort it(popular, cost and alphabet). He can also choose the type and size of pizza, then he can add it to the cart.
-On then cart page user can increase or decrease the number of pizzas, clear the cart and go back.
+On then cart page user can increase or decrease the number of pizzas, clear the cart and come back.
 
 ### Stack of technology:
 
