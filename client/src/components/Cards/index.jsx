@@ -1,20 +1,17 @@
 import { useSelector } from 'react-redux';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Card } from './Card';
 import styles from './Cards.module.scss';
 
 export const Cards = ({ categories }) => {
   const [filteredPizzas, setFilteredPizzas] = useState([]);
-  // TODO sort and filter
   const { pizzas, isLoaded, sortCategory, sortBy } = useSelector(({ pizzas, filters }) => ({
     pizzas: pizzas.items,
     isLoaded: pizzas.isLoaded,
     sortCategory: filters.category,
     sortBy: filters.sortBy,
   }));
-
-  const sortPopular = useCallback((a, b) => {});
 
   useEffect(() => {
     let filterPizzas = [...pizzas];

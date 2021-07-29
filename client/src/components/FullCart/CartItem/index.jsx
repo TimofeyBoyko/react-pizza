@@ -50,7 +50,7 @@ export const CartItem = ({ item, cart }) => {
       </div>
       <svg
         onClick={() => dispatch(removeCartItem(item, cart))}
-        className="d-flex align-center"
+        className={`${styles.remove} d-flex align-center`}
         width={64}
         height={64}
         viewBox="0 0 32 32"

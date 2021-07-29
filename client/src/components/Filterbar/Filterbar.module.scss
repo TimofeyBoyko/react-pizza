@@ -25,7 +25,11 @@
     }
   }
 }
-
+@media screen and (max-width: 1180px) {
+  .filter {
+    display: none;
+  }
+}
 .sort {
   position: relative !important;
   img {

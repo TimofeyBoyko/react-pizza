@@ -12,5 +12,28 @@
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 3vw;
+    div {
+      margin: 0 auto;
+    }
+  }
+
+  @media screen and (max-width: 1400px) {
+    .items {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  @media screen and (max-width: 980px) {
+    .items {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    .items {
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr;
+    }
   }
 }

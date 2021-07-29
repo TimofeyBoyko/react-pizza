@@ -50,6 +50,11 @@
     }
   }
 }
+@media screen and (max-width: 475px) {
+  .text {
+    display: none;
+  }
+}
 
 .line {
   max-width: 1328px;
